@@ -7,6 +7,50 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <title>Youtube Video Modal</title>
+  <style>
+    
+    .youtube-video-modal {
+        position: relative;
+    }
+    
+    .youtube-video-modal iframe {
+        width: 100%;
+        display: block;
+    }
+
+    .youtube-video-modal.ended::after, .youtube-video-modal.paused::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        background-color: black;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 64px 64px;
+        background-image: url(data:image/svg+xml;utf8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgNTEwIDUxMCI+PHBhdGggZD0iTTI1NSAxMDJWMEwxMjcuNSAxMjcuNSAyNTUgMjU1VjE1M2M4NC4xNSAwIDE1MyA2OC44NSAxNTMgMTUzcy02OC44NSAxNTMtMTUzIDE1My0xNTMtNjguODUtMTUzLTE1M0g1MWMwIDExMi4yIDkxLjggMjA0IDIwNCAyMDRzMjA0LTkxLjggMjA0LTIwNC05MS44LTIwNC0yMDQtMjA0eiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==);
+    }
+
+    .youtube-video-modal.paused::after {
+        top: 0;
+        bottom: 0;
+        background-size: 40px 40px;
+        background-image: url(data:image/svg+xml;utf8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSIxNzA2LjY2NyIgaGVpZ2h0PSIxNzA2LjY2NyIgdmlld0JveD0iMCAwIDEyODAgMTI4MCI+PHBhdGggZD0iTTE1Ny42MzUgMi45ODRMMTI2MC45NzkgNjQwIDE1Ny42MzUgMTI3Ny4wMTZ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+);
+    }
+
+    .modal button.close {
+        position: absolute;
+        top: -33px;
+        right:-26px;
+        background: no-repeat;
+        border: none;
+        color: #fff;
+        font-size: 30px;
+    }
+
+  </style>
 </head>
 
 <body>
@@ -93,42 +137,46 @@
     jQuery(document).ready(function ($) {
       "use strict";
 
-      let player;
+      let videos = [
+            '03SUtLR4IyI',
+            '03SUtLR4IyI',
+            '03SUtLR4IyI',
+          ],
+          players = [];
 
       init();
 
       window.onYouTubeIframeAPIReady = function () {
 
-        $('#modal1').on('shown.bs.modal', function () {
-          if (typeof player === 'undefined') {
-            initPlayer('modal-player1', '03SUtLR4IyI');
-          }
-          else {
-            player.playVideo();
-          }
-        });
+        for (let n = 1; n <= 3; n++) {
 
-        $('#modal2').on('shown.bs.modal', function () {
-          if (typeof player === 'undefined') {
-            initPlayer('modal-player2', '03SUtLR4IyI');
-          }
-          else {
-            player.playVideo();
-          }
-        });
+          $('#modal'+n)
+            .on('shown.bs.modal', function () {
+              if (typeof players['modal-player'+n] === 'undefined') {
+                initPlayer('modal-player'+n, videos[n-1]);
+              }
+              else {
+                players['modal-player'+n].playVideo();
+              }
+            })
+            .on('hidden.bs.modal', function () {
+              players['modal-player'+n].stopVideo();
+            });
 
-        $('#modal3').on('shown.bs.modal', function () {
-          if (typeof player === 'undefined') {
-            initPlayer('modal-player3', '03SUtLR4IyI');
-          }
-          else {
-            player.playVideo();
-          }
-        });
+        }
 
-        $('.modal').on('hidden.bs.modal', function () {
-          player.stopVideo();
-        });
+        $('.youtube-video-modal').click(function (e) {
+          e.preventDefault();
+          let id = $(this).find('iframe').attr('id').replace('#',''),
+              state = players[id].getPlayerState();
+          if (state == YT.PlayerState.ENDED) {
+            players[id].seekTo(0);
+          }
+          if (state == YT.PlayerState.PAUSED) {
+            players[id].playVideo();
+          }
+          // players[id].play
+        })
 
       }
 
@@ -141,7 +189,7 @@
       }
 
       function initPlayer(elemId, videoId) {
-        player = new YT.Player(elemId, {
+        players[elemId] = new YT.Player(elemId, {
           height: '390',
           width: '640',
           videoId: videoId,
@@ -171,7 +219,7 @@
         }
 
       }
-
+    
     });
 
   </script>
