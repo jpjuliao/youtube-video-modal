@@ -1,108 +1,180 @@
 <!DOCTYPE html>
 <html>
-	<head></head>
-	<body>
-		<div class="youtube-video">
-			<a href="#" data-trigger="modal" data-modal="#modal1"></a>
-			<iframe src="M7lc1UVf-VE"></iframe>
-		</div>
-		<div class="youtube-video">
-			<a href="#" data-trigger="modal" data-modal="#modal2"></a>
-			<iframe src="M7lc1UVf-VE"></iframe>
-		</div>
-		<div class="youtube-video">
-			<a href="#" data-trigger="modal" data-modal="#modal3"></a>
-			<iframe src="M7lc1UVf-VE"></iframe>
-		</div>
-		<div class="modal" id="modal1">
-			<div id="modal-player1"></div>
-		</div>
-		<div class="modal" id="modal2">
-			<div id="modal-player2"></div>
-		</div>
-		<div class="modal" id="modal3">
-			<div id="modal-player3"></div>
-		</div>
-		<script>
-            
-        document.addEventListener('DOMContentLoaded', (event) => {
-          "use strict";
-  
-          let tag = document.createElement('script');
-              tag.src = "https://www.youtube.com/iframe_api",
-              firstScriptTag = document.getElementsByTagName('script')[0];
-              player;
-              
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    
-          function onYouTubeIframeAPIReady() {
-            
-            $('#modal1').on('bs.modal.shown', function(){
-                
-                player = new YT.Player('modal-player1', {
-                  height: '390',
-                  width: '640',
-                  videoId: 'M7lc1UVf-VE',
-                  events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                  }
-                });
-        
-            });      
-            
-            $('#modal2').on('bs.modal.shown', function(){
-                
-                player = new YT.Player('modal-player2', {
-                  height: '390',
-                  width: '640',
-                  videoId: 'M7lc1UVf-VE',
-                  events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                  }
-                });
-        
-            });      
-            
-            $('#modal3').on('bs.modal.shown', function(){
-                
-                player = new YT.Player('modal-player3', {
-                  height: '390',
-                  width: '640',
-                  videoId: 'M7lc1UVf-VE',
-                  events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                  }
-                });
-        
-            });   
-            
-          } 
-    
-          function onPlayerReady(event) {
-            event.target.playVideo();
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Youtube Video Modal</title>
+</head>
+
+<body>
+  <header>
+    <style>
+    </style>
+  </header>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="youtube-video">
+            <a href="#" data-toggle="modal" data-target="#modal1">Show modal</a>
+            <iframe src="https://www.youtube.com/embed/03SUtLR4IyI"></iframe>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="youtube-video">
+            <a href="#" data-toggle="modal" data-target="#modal2">Show modal</a>
+            <iframe src="https://www.youtube.com/embed/03SUtLR4IyI"></iframe>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="youtube-video">
+            <a href="#" data-toggle="modal" data-target="#modal3">Show modal</a>
+            <iframe src="https://www.youtube.com/embed/03SUtLR4IyI"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="youtube-video-modal">
+              <div id="modal-player1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="youtube-video-modal">
+              <div id="modal-player2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="youtube-video-modal">
+              <div id="modal-player3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script>
+
+    jQuery(document).ready(function ($) {
+      "use strict";
+
+      let player;
+
+      init();
+
+      window.onYouTubeIframeAPIReady = function () {
+
+        $('#modal1').on('shown.bs.modal', function () {
+          if (typeof player === 'undefined') {
+            initPlayer('modal-player1', '03SUtLR4IyI');
           }
-    
-          function onPlayerStateChange(event) {
-              
-            if (event.data == YT.PlayerState.PAUSED) {
-              event.parentNode.classList.add("paused");
-            }
-            
-            if (event.data == YT.PlayerState.ENDED) {
-              event.parentNode.classList.add("ended");
-            }
-            
-            if (event.data == YT.PlayerState.PLAYING) {
-              event.parentNode.classList.remove("paused", "ended");
-            }
-            
+          else {
+            player.playVideo();
           }
-          
         });
-  
-		</script>
-	</body>
+
+        $('#modal2').on('shown.bs.modal', function () {
+          if (typeof player === 'undefined') {
+            initPlayer('modal-player2', '03SUtLR4IyI');
+          }
+          else {
+            player.playVideo();
+          }
+        });
+
+        $('#modal3').on('shown.bs.modal', function () {
+          if (typeof player === 'undefined') {
+            initPlayer('modal-player3', '03SUtLR4IyI');
+          }
+          else {
+            player.playVideo();
+          }
+        });
+
+        $('.modal').on('hidden.bs.modal', function () {
+          player.stopVideo();
+        });
+
+      }
+
+      function init() {
+        let tag = document.createElement('script'),
+          firstScriptTag = document.getElementsByTagName('script')[0];
+        tag.src = "https://www.youtube.com/iframe_api";
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // As soon as the API script is loaded, onYouTubeIframeAPIReady is called
+      }
+
+      function initPlayer(elemId, videoId) {
+        player = new YT.Player(elemId, {
+          height: '390',
+          width: '640',
+          videoId: videoId,
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      function onPlayerStateChange(event) {
+
+        if (event.data == YT.PlayerState.PAUSED) {
+          event.target.a.parentNode.classList.add("paused");
+        }
+
+        if (event.data == YT.PlayerState.ENDED) {
+          event.target.a.parentNode.classList.add("ended");
+        }
+
+        if (event.data == YT.PlayerState.PLAYING) {
+          event.target.a.parentNode.classList.remove("paused", "ended");
+        }
+
+      }
+
+    });
+
+  </script>
+</body>
+
 </html>
